@@ -1,0 +1,103 @@
+{
+    "playlists": [
+        {
+            "title": "Saison 2 - épisode 43",
+            "tracks": [
+                {
+                    "group": "Prefab Sprout",
+                    "title": "Cars and Girls"
+                },
+                {
+                    "group": "Tim Burgess",
+                    "title": "OH My Corazon"
+                },
+                {
+                    "group": "Save Ferris",
+                    "title": "Come on Eileen"
+                },
+                {
+                    "group": "The Knack",
+                    "title": "My Sharona"
+                },
+                {
+                    "group": "Ghost",
+                    "title": "Rats"
+                },
+                {
+                    "group": "Jay Ferguson",
+                    "title": "Happy Too"
+                },
+                {
+                    "group": "Hercules & Loves Affair",
+                    "title": "Blind"
+                }
+            ]
+        },
+        {
+            "title": "Saison 2 - épisode 42",
+            "tracks": [
+                {
+                    "group": "Shakatak",
+                    "title": "Down on the Street"
+                },
+                {
+                    "group": "Lenny Kravitz",
+                    "title": "The Chamber"
+                },
+                {
+                    "group": "Janelle Monáe",
+                    "title": "Screwed (feat. Zoë Kravitz)"
+                },
+                {
+                    "group": "Sinkane",
+                    "title": "U'Huh"
+                },
+                {
+                    "group": "Thomas de Pourquery",
+                    "title": "Rise Again"
+                },
+                {
+                    "group": "Lio",
+                    "title": "Sage comme une image"
+                },
+                {
+                    "group": "Goldfrapp",
+                    "title": "Alive"
+                }
+            ]
+        },
+        {
+            "title": "Saison 2 - épisode 41",
+            "tracks": [
+                {
+                    "group": "Cyndi Lauper",
+                    "title": "I Drove All Night"
+                },
+                {
+                    "group": "Kip Winger",
+                    "title": "I'm In Love With My Car"
+                },
+                {
+                    "group": "The Cardigans",
+                    "title": "Daddy's Car"
+                },
+                {
+                    "group": "Izia",
+                    "title": "La ballade de Jim"
+                },
+                {
+                    "group": "Foutains Of Wayne",
+                    "title": "'92 Subaru"
+                },
+                {
+                    "group": "Elastica",
+                    "title": "Car Song"
+                },
+                {
+                    "group": "Christophe",
+                    "title": "Enzo"
+                }
+            ]
+        }
+    ]
+}

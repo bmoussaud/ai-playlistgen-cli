@@ -23,7 +23,9 @@ public class CliApplication {
     @Bean
     RouterFunction<ServerResponse> routes(Commands commands) {
         return route()
-                .GET("/fetch", request -> ok().body(commands.fetch("xxxxx", false)))
+                .GET("/fetch", request -> ok().body(commands.fetch(null, false)))
+                .GET("/fetch2", request -> ok().body(commands.fetch2(null)))
+                .GET("/fetchf", request -> ok().body(commands.fetchf(null)))
                 .build();
     }
 
