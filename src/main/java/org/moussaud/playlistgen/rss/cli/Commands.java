@@ -4,6 +4,8 @@ import com.apptasticsoftware.rssreader.Item;
 import com.apptasticsoftware.rssreader.RssReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.ai.autoconfigure.azure.openai.AzureOpenAiConnectionProperties;
+import org.springframework.ai.azure.openai.AzureOpenAiChatClient;
 import org.springframework.ai.azure.openai.AzureOpenAiChatOptions;
 import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.messages.AssistantMessage;
@@ -14,6 +16,7 @@ import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.model.function.FunctionCallback;
 import org.springframework.ai.model.function.FunctionCallbackWrapper;
 import org.springframework.ai.parser.BeanOutputParser;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,12 +35,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class Commands {
+public class Commands implements InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(Commands.class);
 
     @Autowired
     private ChatClient aiClient;
+
+    @Autowired
+    private AzureOpenAiConnectionProperties properties;
 
     @Autowired
     private RssService rssService;
@@ -171,6 +177,13 @@ public class Commands {
                     .build();
         }
 
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        logger.info("ChatClient EndPoint  : {}", properties.getEndpoint());
+        AzureOpenAiChatClient azAiClient = (AzureOpenAiChatClient) aiClient;
+        logger.info("ChatClient Deployment: {}", azAiClient.getDefaultOptions().getDeploymentName());
     }
 
 }
