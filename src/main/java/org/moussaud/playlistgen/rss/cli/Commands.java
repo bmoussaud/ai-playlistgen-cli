@@ -72,7 +72,8 @@ public class Commands implements InitializingBean {
             Playlists playlists = new Playlists();
             for (Item item : rssService.getRssItem(rssUrl).toList()) {
                 var prompt = promptTemplate
-                        .render(Map.of("description", item.getDescription(), "title", item.getTitle()));
+                        .render(Map.of("description", item.getDescription().get(), "title", item.getTitle().get()));
+                logger.info(prompt);
                 var response = aiClient.call(new Prompt(prompt));
                 AssistantMessage output = response.getResults().get(0).getOutput();
                 String content = output.getContent();
@@ -105,6 +106,7 @@ public class Commands implements InitializingBean {
             logger.info("Data {}", data);
 
             var prompt = promptTemplate.render(Map.of("data", data));
+            logger.info(prompt);
             var response = aiClient.call(new Prompt(prompt));
             AssistantMessage output = response.getResults().get(0).getOutput();
             String content = output.getContent();
