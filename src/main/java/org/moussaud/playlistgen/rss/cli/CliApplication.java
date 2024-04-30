@@ -26,6 +26,7 @@ public class CliApplication {
                 .GET("/fetch", request -> ok().body(commands.fetch(null, false)))
                 .GET("/fetch2", request -> ok().body(commands.fetch2(null)))
                 .GET("/fetchf", request -> ok().body(commands.fetchf(null)))
+                .GET("/weather", request -> ok().body(commands.weather()))
                 .build();
     }
 

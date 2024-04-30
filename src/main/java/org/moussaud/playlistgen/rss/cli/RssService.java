@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +26,14 @@ public class RssService {
     @Value("classpath:/rss.rss")
     private Resource largeRss;
 
-    private List<Item> items;
+    private Stream<Item> items;
 
-    public List<Item> getRssItem(String rssUrl) throws IOException {
+    public Stream<Item> getRssItem(String rssUrl) throws IOException {
 
         if (rssUrl != null) {
-            items = new RssReader().read(rssUrl).toList();
+            items = new RssReader().read(rssUrl);
         } else {
-            items = new RssReader().read(largeRss.getInputStream()).toList();
+            items = new RssReader().read(defaultRss.getInputStream());
         }
         return items;
     }
@@ -42,7 +41,7 @@ public class RssService {
     public String getTracks(String episodeTitle) {
         try {
             logger.info("** getTracks({})", episodeTitle);
-            List<Item> found = new RssReader().read(largeRss.getInputStream())
+            List<Item> found = new RssReader().read(defaultRss.getInputStream())
                     .filter(i -> i.getTitle().equals(Optional.of(episodeTitle))).toList();
             logger.info("found size {}", found.size());
             return found.get(0).getDescription().get();

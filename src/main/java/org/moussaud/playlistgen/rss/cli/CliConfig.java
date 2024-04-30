@@ -15,13 +15,13 @@ import java.util.function.Function;
 public class CliConfig {
 
     @Bean
-    @Description("Find tracks by episode. The result is a string containing the tracks you should parse.")
-    Function<ByEpisodeRequest, String> tracksByEpisode(RssService svc) {
+    @Description("get the associated tracks. The result is a string containing the tracks you should parse.")
+    Function<ByEpisodeRequest, String> getTheAssociatedTracks(RssService svc) {
         return req -> svc.getTracks(req.episodeTitle());
     }
 
     @Bean
-    @Description("Find tracks by episodse. The result is a list of string containing the tracks you should parse.")
+    @Description("get the tracks for a list of episodes. The result is a list of string containing the tracks you should parse.")
     Function<ByEpisodesRequest, List<String>> tracksByEpisodes(RssService svc) {
         return req -> svc.getAllTracks(req.episodeTitles());
     }
