@@ -32,8 +32,7 @@ Spring AI Version 1.0 Snapshot
 | eastus | gpt-4 (0314) | 1 | The weather in San Francisco, CA is currently 30°F (15°C) with a humidity of 45%. The minimum temperature is 20°F (-6.7°C) and the maximum temperature is 2°F (-16.7°C). The pressure is 53. Now let's check the weather in Paris and Tokyo. |
 | eastus | gpt-4 (0613) | 1 | The current weather in San Francisco, CA is 30.0°C (86.0°F) with a feels-like temperature of 15.0°C (59.0°F). The minimum and maximum temperatures are 20.0°C (68.0°F) and 2.0°C (35.6°F), respectively. The air pressure is 53 hPa, and the humidity is 45%. |
 | eastus | gpt-35-turbo (0613) | 1 | The weather in San Francisco, CA is currently 30°C with a minimum temperature of 20°C and a maximum temperature of 32°C. The humidity is 45% and the air pressure is 53. | 
-
-
+| francecentral | gpt-35-turbo (1106)|3| The weather in San Francisco is currently 30°C with a humidity of 45%. In Paris, the weather is 15°C with a humidity of 45%. In Tokyo, the weather is 10°C with a humidity of 45%. |
 
 
 ### Usefull links

@@ -54,8 +54,11 @@ public class Commands implements InitializingBean {
     @Value("classpath:/extract-playlist-prompt-large.st")
     private Resource promptLarge;
 
-    @Value("classpath:/extract-playlist-prompt-f.fr.st")
+    @Value("classpath:/extract-playlist-prompt-function.st")
     private Resource promptFunctions;
+
+    @Value("classpath:/extract-playlist-prompt-spotify.st")
+    private Resource promptSpotifyFunctions;
 
     @Value("classpath:/system-prompt.st")
     private Resource systemPromptRes;
@@ -126,7 +129,7 @@ public class Commands implements InitializingBean {
         }
     }
 
-    public Object fetchf(String rssUrl) {
+    public String fetchf(String rssUrl) {
         logger.info("fetch f");
         try {
             var data = rssService.getRssItem(rssUrl).sorted()
@@ -138,11 +141,11 @@ public class Commands implements InitializingBean {
 
             BeanOutputParser<Playlists> parser = new BeanOutputParser<>(Playlists.class);
             String format = parser.getFormat();
-            // final var sysMsg = new SystemPromptTemplate(systemPromptRes).createMessage();
+            final var sysMsg = new SystemPromptTemplate(systemPromptRes).createMessage();
             final var askMsg = new PromptTemplate(promptFunctions)
                     .createMessage(Map.of("data", data, "format", format));
 
-            final var prompt = new Prompt(List.of(askMsg));
+            final var prompt = new Prompt(List.of(sysMsg, askMsg));
             logger.info("Sending prompt:\n{}", prompt.getContents());
             var response = aiClient.call(prompt);
             logger.info("Response {}:", response.getResult().getOutput().getContent());
@@ -155,6 +158,38 @@ public class Commands implements InitializingBean {
             throw new RuntimeException("fetch error " + rssUrl, e);
         }
     }
+
+    public String spotify(String rssUrl) {
+        logger.info("spotify");
+        try {
+            var data = rssService.getRssItem(rssUrl).sorted()
+                    .map(Item::getTitle)
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .map(Object::toString)
+                    .collect(Collectors.joining(","));
+
+            BeanOutputParser<Playlists> parser = new BeanOutputParser<>(Playlists.class);
+            String format = parser.getFormat();
+            final var sysMsg = new SystemPromptTemplate(systemPromptRes).createMessage();
+            final var askMsg = new PromptTemplate(promptSpotifyFunctions)
+                    .createMessage(Map.of("data", data, "format", format));
+
+            final var prompt = new Prompt(List.of(sysMsg, askMsg));
+            //final var prompt = new Prompt(List.of(askMsg));
+            logger.info("Sending prompt:\n{}", prompt.getContents());
+            var response = aiClient.call(prompt);
+            logger.info("Response {}:", response.getResult().getOutput().getContent());
+            AssistantMessage output = response.getResults().get(0).getOutput();
+            String content = output.getContent();
+            var playlists = parser.parse(content);
+
+            return asJsonString(playlists);
+        } catch (Exception e) {
+            throw new RuntimeException("fetch error " + rssUrl, e);
+        }
+    }
+
 
     public String weather() {
         UserMessage userMessage = new UserMessage(

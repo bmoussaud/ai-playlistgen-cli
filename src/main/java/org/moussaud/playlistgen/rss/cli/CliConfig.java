@@ -26,6 +26,18 @@ public class CliConfig {
         return req -> svc.getAllTracks(req.episodeTitles());
     }
 
+    @Bean
+    @Description("get the spotify track id using the name and the artist.")
+    Function<ByTrack, String> getSpotifyTrackIdByNameAndArtist(SpotifyService svc) {
+        return req -> svc.getSpotifyTrackId(req.name(), req.artist());
+    }
+
+    @Bean
+    @Description("get the spotify track id based on a track.")
+    Function<Track, String> getSpotifyTrackIdByTrack(SpotifyService svc) {
+        return req -> svc.getSpotifyTrackId(req);
+    }
+
     @JsonClassDescription("A request using an episode title")
     record ByEpisodeRequest(
             @JsonProperty(required = true) @JsonPropertyDescription("episode title") String episodeTitle) {
@@ -34,6 +46,12 @@ public class CliConfig {
     @JsonClassDescription("A request using a list of episode title")
     record ByEpisodesRequest(
             @JsonProperty(required = true) @JsonPropertyDescription("episode title") List<String> episodeTitles) {
+    }
+
+    @JsonClassDescription("A request using a name and artist")
+    record ByTrack(
+            @JsonProperty(required = true) @JsonPropertyDescription("name") String name,
+            @JsonProperty(required = true) @JsonPropertyDescription("artist") String artist) {
     }
 
 }

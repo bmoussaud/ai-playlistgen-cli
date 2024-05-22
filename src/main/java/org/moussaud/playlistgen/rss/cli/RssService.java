@@ -18,7 +18,7 @@ import com.apptasticsoftware.rssreader.RssReader;
 @Service
 public class RssService {
 
-    private static final Logger logger = LoggerFactory.getLogger(Commands.class);
+    private static final Logger logger = LoggerFactory.getLogger(RssService.class);
 
     @Value("classpath:/sample-rss.rss")
     private Resource defaultRss;
@@ -43,7 +43,7 @@ public class RssService {
             logger.info("** getTracks({})", episodeTitle);
             List<Item> found = new RssReader().read(defaultRss.getInputStream())
                     .filter(i -> i.getTitle().equals(Optional.of(episodeTitle))).toList();
-            logger.info("found size {}", found.size());
+            logger.info("found size {}", found.size());            
             return found.get(0).getDescription().get();
         } catch (Exception e) {
             logger.error("getTracks error on " + episodeTitle, e);

@@ -1,46 +1,46 @@
 package org.moussaud.playlistgen.rss.cli;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonClassDescription;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+@JsonClassDescription("track")
 public class Track {
 
-    String group;
-    String title;
+    @JsonProperty(required = true)
+    @JsonPropertyDescription("artist")
+    String artist;
 
-    public String getTitle() {
-        return title;
+    @JsonProperty(required = true)
+    @JsonPropertyDescription("name")
+    String name;
+
+    @JsonProperty(required = false)
+    @JsonPropertyDescription("id")
+    String id;
+
+    public String getArtist() {
+        return artist;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    public String getGroup() {
-        return group;
+    public String getName() {
+        return name;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Track track = (Track) object;
-        return Objects.equals(group, track.group) && Objects.equals(title, track.title);
+    public String getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(group, title);
+    public void setId(String id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Track{" +
-                "group='" + group + '\'' +
-                ", title='" + title + '\'' +
-                '}';
-    }
 }
